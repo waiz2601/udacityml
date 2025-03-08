@@ -29,7 +29,19 @@ features_train = features_train[:int(len(features_train)/100)]
 labels_train = labels_train[:int(len(labels_train)/100)]
 
 
-clf=SVC(kernel='rbf')
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
+grid={
+    'kernel':['rbf','linear'],
+    'C':[10.0,100.0,1000.0,10000.0]
+}
+
+
+
+
+clf = SVC()
+grid_search = GridSearchCV(clf, param_grid=grid, scoring='accuracy',cv=5)
+grid_search.fit(features_train,labels_train)
 t0 = time()
 clf.fit(features_train, labels_train)
 print("Training Time:", round(time()-t0, 3), "s")
@@ -38,7 +50,12 @@ pred=clf.predict(features_test)
 print("Prediction Time:", round(time()-t1, 3), "s")
 accuracy = accuracy_score(labels_test, pred)
 print("Accuracy:", accuracy)
-
+print(grid_search.best_params_)
+print("Prediction for element 10:", pred[10])
+print("Prediction for element 26:", pred[26])
+print("Prediction for element 50:", pred[50])
+num_chris=sum(pred==1)
+print("Number of predictions that are 1:", num_chris)
 
 
 #########################################################
