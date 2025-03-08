@@ -26,9 +26,9 @@ def preprocess(words_file="../tools/word_data.pkl", authors_file="../tools/email
     try:
         # Load the authors and word data
         with open(authors_file, "rb") as authors_file_handler:
-            authors = joblib.load(authors_file_handler, encoding="latin1")
+            authors = joblib.load(authors_file_handler)
         with open(words_file, "rb") as words_file_handler:
-            word_data = joblib.load(words_file_handler, encoding="latin1")
+            word_data = joblib.load(words_file_handler)
     except Exception as e:
         print(f"Error loading data: {e}")
         return None, None, None, None
