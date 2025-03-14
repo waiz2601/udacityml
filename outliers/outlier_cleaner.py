@@ -12,9 +12,10 @@ def outlierCleaner(predictions, ages, net_worths):
     """
     
     cleaned_data = []
-
-    ### your code goes here
-
+    errors=(net_worths-predictions)**2
+    data=list(zip(ages,net_worths,errors))
+    data.sort(key=lambda x:x[2])
+    cleaned_data=data[:int(len(data)*0.9)]
     
     return cleaned_data
 
